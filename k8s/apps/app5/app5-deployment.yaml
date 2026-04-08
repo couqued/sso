@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app5
+  namespace: sso-pilot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app5
+  template:
+    metadata:
+      labels:
+        app: app5
+    spec:
+      containers:
+        - name: app5
+          image: sso-app5:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: app5-config
+            - secretRef:
+                name: app5-secret
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 20
+            periodSeconds: 10

@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app3-config
+  namespace: sso-pilot
+data:
+  SPRING_PROFILES_ACTIVE: kubernetes
+  APP_NAME: "HR Portal"
+  APP_REQUIRED_ROLE: app3-subscriber
+  APP_HOST: app3.sso.local
+  APP_CLIENT_ID: app3-client
+  KEYCLOAK_ISSUER_URI: http://keycloak:8080/realms/sso-pilot

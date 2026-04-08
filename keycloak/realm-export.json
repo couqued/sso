@@ -1,0 +1,146 @@
+{
+  "realm": "sso-pilot",
+  "enabled": true,
+  "displayName": "SSO Pilot",
+  "attributes": {
+    "frontendUrl": "http://keycloak.sso.local"
+  },
+  "roles": {
+    "realm": [
+      { "name": "app1-subscriber", "composite": false },
+      { "name": "app2-subscriber", "composite": false },
+      { "name": "app3-subscriber", "composite": false },
+      { "name": "app4-subscriber", "composite": false },
+      { "name": "app5-subscriber", "composite": false },
+      { "name": "customer",  "composite": false },
+      { "name": "developer", "composite": false },
+      { "name": "admin",     "composite": false }
+    ]
+  },
+  "clients": [
+    {
+      "clientId": "portal-client",
+      "enabled": true,
+      "protocol": "openid-connect",
+      "publicClient": false,
+      "standardFlowEnabled": true,
+      "directAccessGrantsEnabled": false,
+      "redirectUris": ["http://portal.sso.local/login/oauth2/code/keycloak"],
+      "webOrigins": ["http://portal.sso.local"],
+      "defaultClientScopes": ["openid", "profile", "email", "roles"],
+      "protocolMappers": [
+        {
+          "name": "realm-roles-mapper",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-realm-role-mapper",
+          "consentRequired": false,
+          "config": {
+            "claim.name": "roles",
+            "jsonType.label": "String",
+            "multivalued": "true",
+            "userinfo.token.claim": "true",
+            "id.token.claim": "true",
+            "access.token.claim": "true"
+          }
+        }
+      ]
+    },
+    {
+      "clientId": "app1-client",
+      "enabled": true,
+      "protocol": "openid-connect",
+      "publicClient": false,
+      "standardFlowEnabled": true,
+      "directAccessGrantsEnabled": false,
+      "redirectUris": ["http://app1.sso.local/login/oauth2/code/keycloak"],
+      "webOrigins": ["http://app1.sso.local"]
+    },
+    {
+      "clientId": "app2-client",
+      "enabled": true,
+      "protocol": "openid-connect",
+      "publicClient": false,
+      "standardFlowEnabled": true,
+      "directAccessGrantsEnabled": false,
+      "redirectUris": ["http://app2.sso.local/login/oauth2/code/keycloak"],
+      "webOrigins": ["http://app2.sso.local"]
+    },
+    {
+      "clientId": "app3-client",
+      "enabled": true,
+      "protocol": "openid-connect",
+      "publicClient": false,
+      "standardFlowEnabled": true,
+      "directAccessGrantsEnabled": false,
+      "redirectUris": ["http://app3.sso.local/login/oauth2/code/keycloak"],
+      "webOrigins": ["http://app3.sso.local"]
+    },
+    {
+      "clientId": "app4-client",
+      "enabled": true,
+      "protocol": "openid-connect",
+      "publicClient": false,
+      "standardFlowEnabled": true,
+      "directAccessGrantsEnabled": false,
+      "redirectUris": ["http://app4.sso.local/login/oauth2/code/keycloak"],
+      "webOrigins": ["http://app4.sso.local"]
+    },
+    {
+      "clientId": "app5-client",
+      "enabled": true,
+      "protocol": "openid-connect",
+      "publicClient": false,
+      "standardFlowEnabled": true,
+      "directAccessGrantsEnabled": false,
+      "redirectUris": ["http://app5.sso.local/login/oauth2/code/keycloak"],
+      "webOrigins": ["http://app5.sso.local"]
+    }
+  ],
+  "users": [
+    {
+      "username": "alice",
+      "enabled": true,
+      "email": "alice@example.com",
+      "firstName": "Alice",
+      "lastName": "Test",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "alice123",
+          "temporary": false
+        }
+      ],
+      "realmRoles": ["app1-subscriber", "app2-subscriber", "app3-subscriber", "customer"]
+    },
+    {
+      "username": "bob",
+      "enabled": true,
+      "email": "bob@example.com",
+      "firstName": "Bob",
+      "lastName": "Test",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "bob123",
+          "temporary": false
+        }
+      ],
+      "realmRoles": ["app1-subscriber", "app4-subscriber", "developer"]
+    },
+    {
+      "username": "charlie",
+      "enabled": true,
+      "email": "charlie@example.com",
+      "firstName": "Charlie",
+      "lastName": "Test",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "charlie123",
+          "temporary": false
+        }
+      ],
+      "realmRoles": ["admin"]
+    }
+  ]
+}

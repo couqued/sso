@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app2-config
+  namespace: sso-pilot
+data:
+  SPRING_PROFILES_ACTIVE: kubernetes
+  APP_NAME: "Document Manager"
+  APP_REQUIRED_ROLE: app2-subscriber
+  APP_HOST: app2.sso.local
+  APP_CLIENT_ID: app2-client
+  KEYCLOAK_ISSUER_URI: http://keycloak:8080/realms/sso-pilot
